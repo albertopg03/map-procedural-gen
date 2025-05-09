@@ -2,9 +2,9 @@
 
 ## Introducción
 
-La **generación procedural de mapas** es un enfoque utilizado en el desarrollo de videojuegos para crear mapas, niveles o entornos de manera **automática**. Estos mapas no son predefinidos por diseñadores, sino que son generados en tiempo real usando algoritmos, lo que permite una gran variedad de resultados y la creación de mundos dinámicos y sorprendentes.
+La **generación procedural de mapas** es un enfoque utilizado en el desarrollo de videojuegos para crear mapas, niveles o entornos de manera **automática**. Estos mapas no son predefinidos por diseñadores, sino que son generados en tiempo real usando algoritmos, lo que permite una gran variedad de resultados y la creación de mundos dinámicos y naturales.
 
-Los algoritmos de generación procedural de mapas se basan en técnicas matemáticas o estocásticas, y algunos de los más conocidos son:
+Los algoritmos de generación procedural de mapas se basan en técnicas matemáticas, y algunos de los más conocidos son:
 
 1. **Perlin Noise**: Utiliza un enfoque basado en ruido para crear variaciones suaves y naturales en los mapas.
 2. **Automatas Celulares**: Crean mapas a través de reglas locales aplicadas a cada celda, simulando crecimiento o erosión.
