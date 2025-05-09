@@ -1,26 +1,71 @@
-# Documentación Técnica - Algoritmos de Generación Procedural de Mapas
+# 🧭 Generator Assistant - Generador Procedural de Mapas para Unity
 
-## Introducción
+## 📘 Manual de Uso
 
-La **generación procedural de mapas** es un enfoque utilizado en el desarrollo de videojuegos para crear mapas, niveles o entornos de manera **automática**. Estos mapas no son predefinidos por diseñadores, sino que son generados en tiempo real usando algoritmos, lo que permite una gran variedad de resultados y la creación de mundos dinámicos y naturales.
+### 🛠 Cómo acceder a la herramienta
 
-Los algoritmos de generación procedural de mapas se basan en técnicas matemáticas, y algunos de los más conocidos son:
+Para comenzar a usar la herramienta en tu proyecto de Unity:
 
-1. **Perlin Noise**: Utiliza un enfoque basado en ruido para crear variaciones suaves y naturales en los mapas.
-2. **Automatas Celulares**: Crean mapas a través de reglas locales aplicadas a cada celda, simulando crecimiento o erosión.
-3. **Random Walk**: Simula un "caminar aleatorio", ideal para generar cuevas o caminos.
-4. **Random Maps**: Genera mapas aleatorios, generalmente con algún porcentaje de celdas llenas o vacías.
-5. **Directional Tunnels**: Crea túneles con un ancho variable y desplazamiento aleatorio.
-6. **Caves**: Genera mapas de tipo cueva mediante Perlin Noise o caminatas aleatorias.
-7. **Smoothing**: Se utiliza para suavizar los resultados generados por otros algoritmos, eliminando irregularidades y creando mapas más estables.
+1. Abre tu proyecto en Unity.
+2. En la barra superior de Unity, ve a `Tools ➝ Generador Procedural`.
 
-En este documento, se explican detalladamente cada uno de los algoritmos que hemos implementado para la generación de mapas.
+Esto abrirá una ventana con el asistente de generación de mapas, una interfaz intuitiva para personalizar la creación de tus mapas.
+
+<p align="center">
+  <img src="/screenshots/tool1.PNG" alt="Captura interfaz general" width="45%"/>
+  <img src="/screenshots/previewMap.PNG" alt="Captura previsualización mapa" width="45%" style="margin-left:10px"/>
+</p>
+
+
+### ⚙️ Configuración de parámetros
+
+En la ventana del asistente encontrarás dos tipos de parámetros:
+
+1. **Parámetros generales**: Son comunes a todos los algoritmos.
+2. **Parámetros específicos**: Dependiendo del algoritmo que selecciones, se mostrarán opciones adicionales que te permitirán personalizar aún más el mapa generado.
+
+### 👁 Previsualización y generación del mapa
+
+Una vez hayas configurado los parámetros:
+
+- Haz clic en **"Preview Map"** para ver una previsualización de tu mapa.
+- Si te gusta la previsualización, haz clic en **"Spawn this map"** para añadir el mapa a la escena.
+
+Si prefieres que el mapa se genere de forma **totalmente aleatoria** (sin tener en cuenta los parámetros), selecciona la opción de generación aleatoria. Esto hará que cada vez que inicies la escena se genere un mapa diferente, ideal para juegos con mapas dinámicos.
+
+### 🧱 Configuración de tiles
+
+Para que el mapa generado tenga un aspecto visual:
+
+- Es necesario seleccionar los **tiles** que usarás en tu mapa (tilemap y tilebase).
+- Se recomienda crear **tiles inteligentes en Unity**, para mejorar la estética y el aspecto natural de los mapas generados.
+
+> [!NOTE]
+> Si olvidas definir los tiles, se generará un mapa, pero sin la representación visual adecuada.
+
+Cuando generes el mapa, se añadirá un GameObject llamado **"Generator"** en tu escena, el cual tiene adjunto un script llamado `MapGenerator`. Este script contiene varios componentes clave:
+
+1. `MapData`: Un ScriptableObject con todos los datos generados. No modifiques este objeto directamente, ya que puede afectar el funcionamiento del generador.
+2. `TileMap` y `TileBase`: Configuran el aspecto visual de los tiles en el mapa.
+3. `RandomSeed`: Si lo activas, el mapa se generará aleatoriamente en cada ejecución.
+4. `Seed`: La semilla usada para generar el mapa. Si te gusta un mapa en particular, guarda esta semilla y podrás reutilizarla para generar el mismo mapa con los mismos parámetros.
+
+### 📁 Requisitos del proyecto
+
+Para que todo funcione correctamente, es necesario crear una carpeta en la ruta `Assets/GeneratedMaps`. Esta carpeta es donde se almacenarán los ScriptableObjects generados por la herramienta.
+
+> [!TIP]
+> Si no se crea la carpeta, los objetos no se generarán correctamente. Este es un aspecto a mejorar en futuras versiones del generador, para evitar que el desarrollador tenga que crearla manualmente.
 
 ---
 
-## Algoritmos Desarrollados
+## 🧠 Documentación Técnica - Algoritmos de Generación Procedural de Mapas
 
-A continuación se describe cada uno de los algoritmos desarrollados, explicando cómo funcionan, sus características y el tipo de mapas que generan.
+La generación procedural permite crear mapas automáticamente utilizando algoritmos matemáticos. A continuación se describen los algoritmos implementados en este generador.
+
+Para cada algoritmo, puedes añadir la imagen correspondiente en la carpeta `./screenshots/{nombre_algoritmo}.png`.
+
+---
 
 ### 1. **PerlinNoise**
 
@@ -34,6 +79,8 @@ Este algoritmo utiliza **ruido Perlin**, que es una función matemática que gen
 
 **Uso Típico:**  
 Este algoritmo es ideal para **terrenos naturales** como montañas, colinas o mapas con características suaves.
+
+![PerlinNoise](/screenshots/PerlinNoiseExample.PNG)
 
 ---
 
@@ -50,6 +97,8 @@ Este algoritmo es una **variación del PerlinNoise** que agrega un proceso de su
 **Uso Típico:**  
 Ideal para **terrenos más suaves y naturales**, eliminando las transiciones abruptas que a veces se encuentran con el ruido puro de Perlin.
 
+![PerlinNoiseSmoothing](/screenshots/perlinNoiseSmoothingExample.PNG)
+
 ---
 
 ### 3. **RandomWalk**
@@ -65,6 +114,8 @@ Este algoritmo genera mapas a través de una **caminata aleatoria**, donde la po
 **Uso Típico:**  
 Perfecto para **mapas de cuevas** o **túneles** generados de forma aleatoria, con un diseño no estructurado.
 
+![RandomWalk](/screenshots/randomWalkExample.PNG)
+
 ---
 
 ### 4. **RandomWalkSmoothing**
@@ -78,6 +129,8 @@ Este algoritmo mejora la técnica de **RandomWalk** al agregar una **sección su
 
 **Uso Típico:**  
 Genera **cuevas** o **pasillos** aleatorios con menos "zigzagueo", produciendo caminos más consistentes.
+
+![RandomWalkSmoothing](/screenshots/randomWalkSmoothingExample.PNG)
 
 ---
 
@@ -94,6 +147,8 @@ Este algoritmo genera **mapas de cuevas** utilizando **Perlin Noise** en dos dim
 **Uso Típico:**  
 Ideal para generar mapas de **cuevas** o **mazmorras** donde las paredes y el vacío tienen formas orgánicas y suaves.
 
+![PerlinNoiseCave](/screenshots/perlinNoiseCaveExample.PNG)
+
 ---
 
 ### 6. **RandomWalkCave**
@@ -108,6 +163,8 @@ Este algoritmo genera **cuevas** mediante un proceso de **caminata aleatoria**, 
 
 **Uso Típico:**  
 Ideal para crear **cuevas** con un diseño más **irregular** y **caótico**.
+
+![RandomWalkCave](/screenshots/randomWalkCaveExample.PNG)
 
 ---
 
@@ -124,6 +181,8 @@ Genera **túneles** con un **ancho variable**, permitiendo un control sobre su f
 **Uso Típico:**  
 Perfecto para crear **túneles** o **pasillos** de diferentes tamaños, con una forma más natural y fluida.
 
+![DirectionalTunnel](/screenshots/directionalTunnelExample.PNG)
+
 ---
 
 ### 8. **RandomMap**
@@ -137,6 +196,8 @@ Este algoritmo crea un mapa completamente **aleatorio**, con un porcentaje de ce
 
 **Uso Típico:**  
 Ideal para mapas **aleatorios** y de **tamaño dinámico**, como niveles generados aleatoriamente o mapas con una **distribución de terreno** impredecible.
+
+![RandomMap](/screenshots/randomMapExample.PNG)
 
 ---
 
@@ -153,6 +214,8 @@ Este algoritmo utiliza la técnica de **autómata celular de Moore** para crear 
 **Uso Típico:**  
 Genera mapas con un **crecimiento orgánico**, ideal para **mazmorras** o **cuevas** con un diseño más natural.
 
+![AutomataCelularMoore](/screenshots/automataCelularMooreExample.PNG)
+
 ---
 
 ### 10. **AutomataCelularVonNeumann**
@@ -168,5 +231,4 @@ Similar al algoritmo anterior, pero utilizando la **vecindad de Von Neumann** (s
 **Uso Típico:**  
 Genera mapas con **formas más rectas** y **estructuradas**, como **pasillos** o **campos de batalla**.
 
-
-
+![AutomataCelularVonNeumann](/screenshots/automataCelularVonNeumann.PNG)
